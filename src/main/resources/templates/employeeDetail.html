@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://kinhnghiemdayhoc.net/wp-content/uploads/2020/09/hinh-slide-22-1.jpg') no-repeat center center fixed;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 0;
+            padding-top: 20px;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+            border-radius: 50%;
+        }
+
+        .employee-info {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .employee-info img {
+            margin-right: 20px;
+        }
+
+        .employee-info h2 {
+            margin-bottom: 5px;
+        }
+
+        .employee-info p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="container" layout:fragment="content">
+    <h1>EMPLOYEE DETAIL</h1>
+    <div class="employee-info">
+        <div>
+            <img th:src="${employee.image}" width="210" height="210">
+        </div>
+        <div>
+            <h2 th:text="${employee.name}"/>
+            <p th:text="'Age: ' + ${employee.age}"/>
+            <p th:text="'Gender: ' + ${employee.male}"/>
+            <p th:text="'Address: ' + ${employee.address}"/>
+            <p th:text="'Company: ' + ${employee.company.name}"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>

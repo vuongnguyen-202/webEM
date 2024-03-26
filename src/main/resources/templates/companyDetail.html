@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Company Detail</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>COMPANY DETAIL</h1>
+    <div style="display: flex; flex-direction: rows;">
+        <div>
+            <img th:src="${company.image}" width="210" height="210">
+        </div>
+        <div>
+            <h2 th:text="${company.name}"/>
+            <p th:text="'Address: ' + ${company.address}"/>
+        </div>
+    </div>
+    <ol>
+        <li
+                th:each="emp : ${company.employees}"
+                th:text="${emp.name} + ' (' + ${emp.age} + ' years old)'"></li>
+    </ol>
+</div>
+</body>
+</html>

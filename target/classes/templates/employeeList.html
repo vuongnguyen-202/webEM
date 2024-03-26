@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee List</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://kinhnghiemdayhoc.net/wp-content/uploads/2020/09/hinh-slide-22-1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #333; /* Text color on top of the background */
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        div.container {
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* White background with some transparency */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #black;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+
+    </style>
+    <script>
+        window.addEventListener("load", function () {
+            let comId = [[${comId}]];
+            let sortMode = [[${sortMode}]];
+
+            function filterRedirect() {
+                let url = "/employee/list?company=" + comId + "&sort=" + sortMode;
+                window.location.href = url; // redirect
+            }
+
+            const comFilter = document.getElementById("filterCompany");
+            comFilter.value = comId;
+            comFilter.addEventListener("change", function () {
+                comId = comFilter.value;
+                filterRedirect();
+            });
+            const sortMenu = document.getElementById("sortOptions");
+            sortMenu.value = sortMode;
+            sortMenu.addEventListener("change", function () {
+                sortMode = sortMenu.value;
+                filterRedirect();
+            });
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>EMPLOYEE LIST</h2>
+    <div class="filterContainer">
+        Company:
+        <select id="filterCompany">
+            <option value="0">All companies</option>
+            <option th:each="comp : ${companies}"
+                    th:value="${comp.id}"
+                    th:text="${comp.name}" />
+        </select>
+        Sort:
+        <select id="sortOptions">
+            <option value="0">Latest</option>
+            <option value="1">Oldest</option>
+            <option value="2">By name ASC</option>
+            <option value="3">By name DESC</option>
+        </select>
+    </div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Image</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.id}"/>
+            <td>
+                <a th:href="'/employee/' + ${employee.id}" th:text="${employee.name}"/>
+            </td>
+            <td th:text="${employee.age}" />
+            <td th:text="${employee.male ? 'Male' : 'Female'}" />
+            <td>
+                <img th:src="${employee.image}" width="100" height="100"/>
+            </td>
+            <td><a th:href="'/employee/update/' + ${employee.id}">UPDATE</a></td>
+            <td><a th:href="'/employee/delete/' + ${employee.id}">DELETE</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
